@@ -1,5 +1,5 @@
-<div>
-  <p class="error" *ngIf="triedToLogin && !authService.authenticated">Login credentials were incorrect!</p>
+<div *ngIf="displayForm">
+
   <form>
     <br>
     <label for="username">Username</label>
@@ -9,4 +9,9 @@
     <input [(ngModel)]="user.password" name="password">
     <button (click)="login()" type="submit">Login</button>
   </form>
+
+  <div *ngIf="triedToLogin && !authService.authenticated">
+    <p class="error">Login credentials were incorrect!</p>
+  </div>
+
 </div>

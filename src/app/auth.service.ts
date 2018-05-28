@@ -48,10 +48,10 @@ export class AuthService {
   login(user) {
     const lol = this.http.post("/login", user)
     lol.subscribe((response: any) => {
-      console.log(response);
       const decoded = jwt_decode(response.token);
       localStorage.setItem("user", response.token);
       this._user = decoded
+      this.token = response.token;
     }, (error) => {
       console.error("could not login");
     });
@@ -60,8 +60,9 @@ export class AuthService {
   }
 
   logout() {
-    this._user = null;
-    localStorage.clearItem("user");
+    this._user = undefined;
+    this.token = null;
+    localStorage.removeItem("user");
   }
 
   getResource(friends): Observable<any> {

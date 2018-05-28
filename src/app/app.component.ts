@@ -14,11 +14,15 @@ export class AppComponent {
   constructor(private authService: AuthService) { }
 
   logout() {
-    // logout user using authService.
+    this.authService.logout()
+    this.friends = [];
+  }
+
+  get displayOnline() {
+    return localStorage.getItem("user") !== null;
   }
 
   testApi() {
-    // test API access by invoking getResource on authService.
     this.authService.getResource("/friends")
       .subscribe((resp) => {
         this.friends = resp.friends;

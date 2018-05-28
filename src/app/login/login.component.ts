@@ -21,12 +21,22 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  get displayForm() {
+    return localStorage.getItem("user") == null;
+  }
+
   login() {
     this.triedToLogin = true;
-    
+
     this.authService.login(this.user)
       .subscribe((response) => {
         console.log("user has logged in", response)
+        this.triedToLogin = false;
+
+        this.user = {
+          username: "",
+          password: ""
+        };
       }
       )
   }

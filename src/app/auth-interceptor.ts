@@ -4,19 +4,13 @@ import { HttpEvent, HttpInterceptor, HttpRequest, HttpResponse, HttpErrorRespons
 import { Observable } from 'rxjs';
 import { of } from 'rxjs/observable/of';
 
-// ...
-// Example of user credentials to match against incoming credentials.
 const username = 'dellros';
 const password = 'hejhej';
 
-// list of friends to return when the route /api/friends is invoked.
-const mockFriends = ['alice', 'bob']
+const mockFriends = ['Alice', 'Bob', "Edward", "Rick"]
 
-// the hardcoded JWT access token you created @ jwt.io.
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTaW1vbiBEZWxscm9zIiwibmFtZSI6IlNpbW9uIERlbGxyb3MifQ.Si1zcSuEyX8oPfetU60H0c5YmGU1dqzowxe4rAeUEtM';
 
-// ...
-// Use these methods in the implementation of the intercept method below to return either a success or failure response.
 const makeError = (status, error) => {
     return Observable.throw(
         new HttpErrorResponse({
@@ -35,7 +29,6 @@ const makeResponse = body => {
     );
 };
 
-// ...
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -49,13 +42,13 @@ export class AuthInterceptor implements HttpInterceptor {
         } = req;
 
 
-        if (url.endsWith("/login")){
-            if (body.username == username && body.password == password){
-                 return makeResponse({token: token});
+        if (url.endsWith("/login")) {
+            if (body.username == username && body.password == password) {
+                return makeResponse({ token: token });
             } else {
-                 return makeError(500, {});
+                return makeError(500, {});
             }
-        } else if (url.endsWith("/friends")){
+        } else if (url.endsWith("/friends")) {
             if (headers.has("Authorization")) {
                 if (headers.get("Authorization") === `Bearer ${token}`) {
                     return makeResponse({
@@ -70,6 +63,5 @@ export class AuthInterceptor implements HttpInterceptor {
         } else {
             return makeError(500, {});
         }
-    // implement logic for handling API requests, as defined in the exercise instructions.
     }
 }   
