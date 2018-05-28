@@ -1,15 +1,18 @@
 <div class="container">
 
   <div class="status">
-    <span>User ID: {{ (authService.user && authService.user.name) ? authService.user.name : "N/A" }}</span>
-    <button *ngIf="displayOnline" (click)="testApi()">Test API</button>
+    <span>User ID: <span class="bluetext">{{ (authService.user && authService.user.name) ? authService.user.name : "N/A" }}</span></span>
+    <button *ngIf="displayOnline" (click)="testApi()">Get friends</button>
     <button *ngIf="displayOnline" (click)="logout()">Logout</button>
   </div>
 
   <app-login></app-login>
 
   <div *ngIf="displayOnline">
-    <p *ngFor="let friend of friends">
+    <br>
+    <br>
+    <p class="aligncenter">This is my friends:</p><br>
+    <p class="aligncenter" *ngFor="let friend of friends">
       {{ friend }}
     </p>
   </div>

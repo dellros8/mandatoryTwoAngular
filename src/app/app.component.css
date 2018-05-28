@@ -8,7 +8,10 @@
     justify-content: space-between;
 }
 
-.error {
-    color: red;
+.bluetext {
+    color: blue;
+}
+
+.aligncenter {
     text-align: center;
 }
