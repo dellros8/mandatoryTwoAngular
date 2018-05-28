@@ -10,15 +10,15 @@ export class AppComponent {
   
   constructor(private authService: AuthService) {}
 
-  login() {
-    // login user using authService.
-  }
-
   logout() {
     // logout user using authService.
   }
 
   testApi() {
     // test API access by invoking getResource on authService.
+
+    this.authService.getResource
+    .subscribe()
+    
   }
 }

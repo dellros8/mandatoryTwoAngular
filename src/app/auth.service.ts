@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import jwt_decode from 'jwt-decode';
+import * as jwt_decode from 'jwt-decode';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -49,7 +49,15 @@ export class AuthService {
     });
   }
 
-  login(credentials): Observable<User> {
+  login(user) {
+    const lol = this.http.post("/login", user)
+    lol.subscribe((token: any) => {
+      const decoded = jwt_decode(token.token);
+      this._user = decoded
+    });
+
+    return lol;
+    
     // invoke the relevant API route for authenticating the user with the given credentials and return an observable
     // of a User object (= decoded token).
     //
@@ -57,7 +65,6 @@ export class AuthService {
     // catching http errors.
 
     // return ...
-    return;
   }
 
   logout() {
