@@ -26,8 +26,6 @@ export class AppComponent {
     this.authService.getResource("/friends")
       .subscribe((resp) => {
         this.friends = resp.friends;
-      }, (error) => {
-        console.error("got error", error);
       });
 
   }

@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.user)
       .subscribe((response) => {
-        console.log("user has logged in", response)
         this.triedToLogin = false;
 
         this.user = {

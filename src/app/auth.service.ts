@@ -52,8 +52,6 @@ export class AuthService {
       localStorage.setItem("user", response.token);
       this._user = decoded
       this.token = response.token;
-    }, (error) => {
-      console.error("could not login");
     });
 
     return lol;
