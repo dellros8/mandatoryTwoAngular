@@ -1,9 +1,12 @@
-<form>
-  <br>
-  <label for="username">Username</label>
-  <input [(ngModel)]="user.username" name="username">
-  <br>
-  <label for="password">Password</label>
-  <input [(ngModel)]="user.password" name="password">
-  <button (click)="login()" type="submit">Login</button>
-</form>
+<div>
+  <p class="error" *ngIf="triedToLogin && !authService.authenticated">Login credentials were incorrect!</p>
+  <form>
+    <br>
+    <label for="username">Username</label>
+    <input [(ngModel)]="user.username" name="username">
+    <br>
+    <label for="password">Password</label>
+    <input [(ngModel)]="user.password" name="password">
+    <button (click)="login()" type="submit">Login</button>
+  </form>
+</div>

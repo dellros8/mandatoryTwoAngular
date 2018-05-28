@@ -10,10 +10,10 @@ const username = 'dellros';
 const password = 'hejhej';
 
 // list of friends to return when the route /api/friends is invoked.
-const friends = ['alice', 'bob']
+const mockFriends = ['alice', 'bob']
 
 // the hardcoded JWT access token you created @ jwt.io.
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZWxscm9zIiwibmFtZSI6ImhlamhlaiJ9.5_E0HiLKZlU_FmEvrJZqAWhp2FSIE48huJEc7fEGpuA';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTaW1vbiBEZWxscm9zIiwibmFtZSI6IlNpbW9uIERlbGxyb3MifQ.Si1zcSuEyX8oPfetU60H0c5YmGU1dqzowxe4rAeUEtM';
 
 // ...
 // Use these methods in the implementation of the intercept method below to return either a success or failure response.
@@ -53,12 +53,22 @@ export class AuthInterceptor implements HttpInterceptor {
             if (body.username == username && body.password == password){
                  return makeResponse({token: token});
             } else {
-                console.log("error")
                  return makeError(500, {});
             }
-        }
-        
-        if (url.endsWith("/friends")){
+        } else if (url.endsWith("/friends")){
+            if (headers.has("Authorization")) {
+                if (headers.get("Authorization") === `Bearer ${token}`) {
+                    return makeResponse({
+                        friends: mockFriends,
+                    })
+                } else {
+                    return makeError(401, {});
+                }
+            } else {
+                return makeError(401, {});
+            }
+        } else {
+            return makeError(500, {});
         }
     // implement logic for handling API requests, as defined in the exercise instructions.
     }

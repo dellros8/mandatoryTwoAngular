@@ -7,24 +7,28 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   user = {
     username: "",
     password: ""
-  }
+  };
+
+  triedToLogin = false;
+
 
   constructor(private authService: AuthService) { }
 
-  login() {
-    // login user using authService.
-    this.authService.login(this.user)
-    .subscribe(() => {
-      console.log("blabla")
-    }
-    )
+  ngOnInit() {
   }
 
-  ngOnInit() {
+  login() {
+    this.triedToLogin = true;
+    
+    this.authService.login(this.user)
+      .subscribe((response) => {
+        console.log("user has logged in", response)
+      }
+      )
   }
 
 }
